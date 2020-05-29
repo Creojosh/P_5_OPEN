@@ -7,6 +7,7 @@ function autoloadClass($class)
 
 spl_autoload_register('autoloadClass');
 
+/** Twig */
 $loader = new \Twig\Loader\FilesystemLoader('./templates');
 $twig = new \Twig\Environment($loader);
 /** Add function for implement asset logic */
