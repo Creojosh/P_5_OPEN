@@ -8,29 +8,51 @@
     {% block stylesheets %}
         <!-- Bootstrap core CSS -->
         <link href="{{ asset('/assets/css/bootstrap.min.css') }}" rel="stylesheet">
+        <link href="{{ asset('/assets/css/style.css') }}" rel="stylesheet">
     {% endblock %}
 </head>
 <body>
-{% embed "header.html.twig" %}{% endembed %}
+<header>
+    <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+        <a class="navbar-brand" href="#">LOGO</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse"
+                aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item {% block index %}{% endblock %}">
+                    <a class="nav-link" href="index">Accueil <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item {% block blog %}{% endblock %}">
+                    <a class="nav-link" href="blog">Blog</a>
+                </li>
+            </ul>
+
+        </div>
+    </nav>
+</header>
 {% block body %}{% endblock %}
 {% block footer %}
     <footer class="container">
-        <hr class="featurette-divider" />
+        <hr class="featurette-divider"/>
 
         <p class="float-right">
-            <button type="button" class="btn btn-outline-primary" onclick="scrollToTop()"><svg
+            <button type="button" class="btn btn-outline-primary" onclick="scrollToTop()">
+                <svg
                         class="bi bi-arrow-up-short h2" width="1em" height="1em" viewBox="0 0 20 20" fill="currentColor"
                         xmlns="http://www.w3.org/2000/svg">
-                    <path fill-rule="evenodd" d="M10 7.5a.5.5 0 01.5.5v5a.5.5 0 01-1 0V8a.5.5 0 01.5-.5z" clip-rule="evenodd">
+                    <path fill-rule="evenodd" d="M10 7.5a.5.5 0 01.5.5v5a.5.5 0 01-1 0V8a.5.5 0 01.5-.5z"
+                          clip-rule="evenodd">
                     </path>
                     <path fill-rule="evenodd"
                           d="M9.646 6.646a.5.5 0 01.708 0l3 3a.5.5 0 01-.708.708L10 7.707l-2.646 2.647a.5.5 0 01-.708-.708l3-3z"
                           clip-rule="evenodd"></path>
-                </svg></button>
+                </svg>
+            </button>
         </p>
         <p>
-            &copy; 2020 Festival des Films de Plein Air. &middot;
-            <a href="terms.html">Mentions légales</a>
+            &copy; 2020 <a href="terms.html">Mentions légales</a>
         </p>
     </footer>
 {% endblock %}

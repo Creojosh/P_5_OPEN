@@ -1,0 +1,140 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Blog{% endblock %}
+
+{% block blog %}active{% endblock %}
+
+{% block body %}
+
+    <main role="main" id="main">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="index">Accueil</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Blog</li>
+            </ol>
+        </nav>
+        <div class="container mt-3">
+            <div class="jumbotron p-4 p-md-5 text-white rounded bg-dark">
+                <div class="col-md-6 px-0">
+                    <h1 class="display-4 font-italic">
+                        Titre article
+                    </h1>
+                    <p class="lead my-3">
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris purus dolor,
+                        elementum id est sit amet, tristique lacinia purus. Pellentesque habitant morbi
+                        tristique senectus et netus et malesuada fames ac turpis egestas. Duis at sem ipsum.
+                    </p>
+                    <p class="lead mb-0">
+                        <a href="new-detail.html" class="text-white font-weight-bold">Lire la suite ......</a>
+                    </p>
+                </div>
+            </div>
+            <div id="news">
+                <div class="row mb-2" id="page1">
+                    <div class="col-md-6">
+                        <div
+                                class="row no-gutters border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
+                            <div class="col p-4 d-flex flex-column position-static">
+                                <strong class="d-inline-block mb-2 text-primary">World</strong>
+                                <h3 class="mb-0">Titre article n°1</h3>
+                                <div class="mb-1 text-muted">Nov 12</div>
+                                <p class="card-text mb-auto">
+                                    Lorem ipsum dolor sit amet, adipiscing elit. Mauris purus dolor,
+                                    elementum id est sit amet...
+                                </p>
+                                <a href="new-detail.html" class="stretched-link">Lire la suite ...</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div
+                                class="row no-gutters border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
+                            <div class="col p-4 d-flex flex-column position-static">
+                                <strong class="d-inline-block mb-2 text-success">Design</strong>
+                                <h3 class="mb-0">Titre article n°2</h3>
+                                <div class="mb-1 text-muted">Nov 11</div>
+                                <p class="card-text mb-auto">
+                                    Lorem ipsum dolor sit amet, adipiscing elit. Mauris purus dolor,
+                                    elementum id est sit amet...
+                                </p>
+                                <a href="new-detail.html" class="stretched-link">Lire la suite ...</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div
+                                class="row no-gutters border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
+                            <div class="col p-4 d-flex flex-column position-static">
+                                <strong class="d-inline-block mb-2 text-primary">World</strong>
+                                <h3 class="mb-0">Titre article n°3</h3>
+                                <div class="mb-1 text-muted">Nov 12</div>
+                                <p class="card-text mb-auto">
+                                    Lorem ipsum dolor sit amet, adipiscing elit. Mauris purus dolor,
+                                    elementum id est sit amet...
+                                </p>
+                                <a href="new-detail.html" class="stretched-link">Lire la suite ...</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div
+                                class="row no-gutters border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
+                            <div class="col p-4 d-flex flex-column position-static">
+                                <strong class="d-inline-block mb-2 text-success">Design</strong>
+                                <h3 class="mb-0">Titre article n°4</h3>
+                                <div class="mb-1 text-muted">Nov 11</div>
+                                <p class="card-text mb-auto">
+                                    Lorem ipsum dolor sit amet, adipiscing elit. Mauris purus dolor,
+                                    elementum id est sit amet...
+                                </p>
+                                <a href="new-detail.html" class="stretched-link">Lire la suite ...</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <nav class="text-center" aria-label="...">
+                <ul class="pagination justify-content-center">
+                    <li class="page-item disabled" id="previous">
+                        <a class="page-link" tabindex="-1" aria-disabled="true">Précédent</a>
+                    </li>
+                    <li class="page-item active" id="link1">
+                        <a class="page-link" href="news.html">1</a>
+                    </li>
+                    <li class="page-item" id="link2">
+                        <a class="page-link" href="news-2.html">2</a>
+                    </li>
+                    <li class="page-item" id="next">
+                        <a class="page-link" href="news-2.html">Suivant</a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+
+        <!-- FOOTER -->
+        <footer class="container">
+            <hr class="featurette-divider"/>
+
+            <p class="float-right">
+                <button type="button" class="btn btn-outline-primary" onclick="scrollToTop()">
+                    <svg
+                            class="bi bi-arrow-up-short h2" width="1em" height="1em" viewBox="0 0 20 20"
+                            fill="currentColor"
+                            xmlns="http://www.w3.org/2000/svg">
+                        <path fill-rule="evenodd" d="M10 7.5a.5.5 0 01.5.5v5a.5.5 0 01-1 0V8a.5.5 0 01.5-.5z"
+                              clip-rule="evenodd"></path>
+                        <path fill-rule="evenodd"
+                              d="M9.646 6.646a.5.5 0 01.708 0l3 3a.5.5 0 01-.708.708L10 7.707l-2.646 2.647a.5.5 0 01-.708-.708l3-3z"
+                              clip-rule="evenodd"></path>
+                    </svg>
+                </button>
+            </p>
+            <p>
+                &copy; 2020 Festival des Films de Plein Air. &middot;
+                <a href="terms.html">Mentions légales</a>
+            </p>
+        </footer>
+        <!-- /FOOTER -->
+    </main>
+{% endblock %}

@@ -1,104 +1,164 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}Accueil{% endblock %}
+
+{% block index %}active{% endblock %}
+
 {% block body %}
 
-<main role="main">
+    <main role="main">
 
-    <div id="myCarousel" class="carousel slide" data-ride="carousel">
-        <ol class="carousel-indicators">
-            <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
-            <li data-target="#myCarousel" data-slide-to="1"></li>
-        </ol>
-        <div class="carousel-inner">
-            <div class="carousel-item active">
-                <svg class="bd-placeholder-img" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg"
-                     preserveAspectRatio="xMidYMid slice" focusable="false" role="img">
-                    <rect width="100%" height="100%" fill="#777" /><text x="50%" y="50%" fill="#aaa" dy=".3em">1600x500</text></svg>
-                <div class="container">
-                    <div class="carousel-caption text-left">
-                        <h1>Exemple Titre n°1</h1>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris purus dolor,
-                            elementum id est sit amet, tristique lacinia purus.</p>
+        <div id="myCarousel" class="carousel slide" data-ride="carousel">
+            <ol class="carousel-indicators">
+                <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+                <li data-target="#myCarousel" data-slide-to="1"></li>
+            </ol>
+            <div class="carousel-inner">
+                <div class="carousel-item active">
+                    <svg class="bd-placeholder-img" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg"
+                         preserveAspectRatio="xMidYMid slice" focusable="false">
+                        <rect width="100%" height="100%" fill="#777"/>
+                        <text x="50%" y="50%" fill="#aaa" dy=".3em">1600x500</text>
+                    </svg>
+                    <div class="container">
+                        <div class="carousel-caption text-left">
+                            <h1>Développeur Back-End</h1>
+                            <p>Joshua ETHEVE</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="carousel-item">
+                    <svg class="bd-placeholder-img" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg"
+                         preserveAspectRatio="xMidYMid slice" focusable="false">
+                        <rect width="100%" height="100%" fill="#777"/>
+                        <text x="50%" y="50%" fill="#aaa" dy=".3em">1600x500</text>
+                    </svg>
+                    <div class="container">
+                        <div class="carousel-caption">
+                            <h1>Développeur Symfony</h1>
+                            <p>Je suis développeur PHP spécialisé sur le framework Symfony.</p>
+                        </div>
                     </div>
                 </div>
             </div>
-            <div class="carousel-item">
-                <svg class="bd-placeholder-img" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg"
-                     preserveAspectRatio="xMidYMid slice" focusable="false" role="img">
-                    <rect width="100%" height="100%" fill="#777" /><text x="50%" y="50%" fill="#aaa" dy=".3em">1600x500</text></svg>
-                <div class="container">
-                    <div class="carousel-caption">
-                        <h1>Exemple Titre n°2</h1>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris purus dolor,
-                            elementum id est sit amet, tristique lacinia purus.</p>
-                    </div>
+            <a class="carousel-control-prev" href="#myCarousel" role="button" data-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="sr-only">Previous</span>
+            </a>
+            <a class="carousel-control-next" href="#myCarousel" role="button" data-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="sr-only">Next</span>
+            </a>
+        </div>
+
+
+        <div class="container marketing">
+
+            <hr class="featurette-divider">
+
+            <div class="row featurette">
+                <div class="col-md-5 order-md-2">
+                    <svg class="bd-placeholder-img bd-placeholder-img-lg featurette-image img-fluid mx-auto" width="500"
+                         height="500" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice"
+                         focusable="false"
+                         role="img" aria-label="Placeholder: 500x500">
+                        <title>Placeholder</title>
+                        <rect width="100%" height="100%" fill="#eee"/>
+                        <text x="50%" y="50%" fill="#aaa" dy=".3em">500x500</text>
+                    </svg>
+                </div>
+                <div class="col-md-7 order-md-1 mt-2">
+                    <h2>A PROPOS DE MOI
+                    </h2>
+                    <p class="lead">L'informatique a toujours été une passion et je souhaite en faire mon métier.
+                        Une forte motivation et des capacités d'analyse, de méthode et de rigueur m'aideront à forger
+                        mon avenir afin de devenir véritablement un développeur Back-end..</p>
+                    <h4>Liens utiles</h4>
+                    <a href="https://www.linkedin.com/in/etheve-joshua/" target="_blank" class="btn btn-primary">LinkedIn</a>
+                    <a href="https://github.com/Creojosh" target="_blank" class="btn btn-dark">GitHub</a>
+                    <a href="https://drive.google.com/file/d/1iJGMXT2r1672XlDO0bMLkTh1wIh3Pu8k/view?usp=sharing"
+                       target="_blank" class="btn btn-success">CV</a></div>
+            </div>
+
+            <hr class="featurette-divider">
+
+            <div class="row featurette">
+                <div class="col-md-5">
+                    <svg class="bd-placeholder-img bd-placeholder-img-lg featurette-image img-fluid mx-auto" width="500"
+                         height="500" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice"
+                         focusable="false"
+                         role="img" aria-label="Placeholder: 500x500">
+                        <title>Placeholder</title>
+                        <rect width="100%" height="100%" fill="#eee"/>
+                        <text x="50%" y="50%" fill="#aaa" dy=".3em">500x500</text>
+                    </svg>
+                </div>
+                <div class="col-md-7 order-md-1 mt-2">
+                    <h2>Contact</h2>
+                    <div class="error"></div>
+
+                    <form id="form">
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label for="contact-name">Nom</label>
+                                <input type="text" class="form-control" id="name" name="name" placeholder="nom">
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label for="surname">Prénom</label>
+                                <input type="text" class="form-control" id="surname" name="surname" placeholder="prenom">
+                            </div>
+                            <div class="col-sm-12 my-1">
+                                <label for="email">Email</label>
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <div class="input-group-text">@</div>
+                                    </div>
+                                    <input type="text" class="form-control" id="email" name="email" placeholder="Username">
+                                </div>
+                            </div>
+                            <div class="col-sm-12 my-1">
+                                <label for="message">Message</label>
+                                <div class="form-group">
+                                    <textarea class="form-control" id="message" name="message" rows="3"></textarea>
+                                </div>
+                            </div>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary">Envoyer</button>
+                    </form>
                 </div>
             </div>
-        </div>
-        <a class="carousel-control-prev" href="#myCarousel" role="button" data-slide="prev">
-            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-            <span class="sr-only">Previous</span>
-        </a>
-        <a class="carousel-control-next" href="#myCarousel" role="button" data-slide="next">
-            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-            <span class="sr-only">Next</span>
-        </a>
-    </div>
 
 
-    <div class="container marketing">
-
-        <hr class="featurette-divider">
-
-        <div class="row featurette">
-            <div class="col-md-5 order-md-2">
-                <svg class="bd-placeholder-img bd-placeholder-img-lg featurette-image img-fluid mx-auto" width="500"
-                     height="500" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false"
-                     role="img" aria-label="Placeholder: 500x500">
-                    <title>Placeholder</title>
-                    <rect width="100%" height="100%" fill="#eee" /><text x="50%" y="50%" fill="#aaa" dy=".3em">500x500</text>
-                </svg>
-            </div>
-            <div class="col-md-7 order-md-1 mt-2">
-                <h2 class="featurette-heading">Titre festival n°1 <span class="text-muted">Lorem ipsum dolor sit amet</span>
-                </h2>
-                <p class="lead">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris purus dolor,
-                    elementum id est sit amet, tristique lacinia purus. Pellentesque habitant morbi
-                    tristique senectus et netus et malesuada fames ac turpis egestas. Duis at sem ipsum.
-                    Donec et consectetur risus, in luctus nibh. In vel sem aliquam, feugiat purus id,
-                    condimentum arcu.</p>
-                <button type="button" class="btn btn-outline-secondary">Lien vers les films</button>
-            </div>
         </div>
 
-        <hr class="featurette-divider">
+    </main>
+{% endblock %}
 
-        <div class="row featurette">
-            <div class="col-md-5">
-                <svg class="bd-placeholder-img bd-placeholder-img-lg featurette-image img-fluid mx-auto" width="500"
-                     height="500" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false"
-                     role="img" aria-label="Placeholder: 500x500">
-                    <title>Placeholder</title>
-                    <rect width="100%" height="100%" fill="#eee" /><text x="50%" y="50%" fill="#aaa" dy=".3em">500x500</text>
-                </svg>
-            </div>
-            <div class="col-md-7 order-md-1 mt-2">
-                <h2 class="featurette-heading">Titre festival n°2 <span class="text-muted">Lorem ipsum dolor sit amet</span>
-                </h2>
-                <p class="lead">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris purus dolor,
-                    elementum id est sit amet, tristique lacinia purus. Pellentesque habitant morbi
-                    tristique senectus et netus et malesuada fames ac turpis egestas. Duis at sem ipsum.
-                    Donec et consectetur risus, in luctus nibh. In vel sem aliquam, feugiat purus id,
-                    condimentum arcu.</p>
-                <button type="button" class="btn btn-outline-secondary">Lien vers les actualités</button>
+{% block javascripts %}
+    {{ parent() }}
+    <script>
+        $(function () {
 
-            </div>
-        </div>
+            $('form').on('submit', function (e) {
 
+                e.preventDefault();
 
+                $.ajax({
+                    type: 'post',
+                    url: 'script/contact.php',
+                    data: $('form').serialize(),
+                    success: function(data) {
+                        if(data.status === 'success'){
+                            alert("Ok");
+                        }else if(data.status === 'error'){
+                            alert("Error");
+                        }
+                    }
+                });
 
-    </div>
+            });
 
-</main>
+        });
+    </script>
 {% endblock %}
