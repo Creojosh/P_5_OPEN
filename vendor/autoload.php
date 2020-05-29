@@ -4,12 +4,4 @@
 
 require_once __DIR__ . '/composer/autoload_real.php';
 
-/** Autoload class by name */
-function autoloadClass($class)
-{
-    require 'class/'.$class . '.php';
-}
-
-spl_autoload_register('autoloadClass');
-
 return ComposerAutoloaderInitb36ab86298f7874641e57b52f3ca4043::getLoader();
