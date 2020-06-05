@@ -1,33 +1,35 @@
 <?php
-
-require '../vendor/autoload.php';
+require_once('../vendor/autoload.php');
+require_once('../loader.php');
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
+    $response_array = [];
+    $mail = new Mail();
     $name = strip_tags(htmlspecialchars($_POST['name']));
     $surname = strip_tags(htmlspecialchars($_POST['surname']));
     $email = strip_tags(htmlspecialchars($_POST['email']));
     $message = strip_tags(htmlspecialchars($_POST['message']));
-    if (isset($email))
-        $response_array['status'] = 'error';
-
     try {
-        $transport = (new Swift_SmtpTransport('smtp.example.org', 25))
-            ->setUsername('your username')
-            ->setPassword('your password');
+        $transport = (new Swift_SmtpTransport('smtp.gmail.com', 465, 'ssl'))
+            ->setUsername($mail->getUsername())
+            ->setPassword($mail->getPassword());
 
         $mailer = new Swift_Mailer($transport);
 
-        $message = (new Swift_Message('Wonderful Subject'))
-            ->setFrom(['etheve.joshua@gmail.com' => 'ETHEVE Joshua'])
-            ->setTo(['etheve.joshua@gmail.com' => 'ETHEVE Joshua'])
-            ->setBody('Here is the message');
+        $message = (new Swift_Message('Nouveau Message'))
+            ->setFrom([$email => $name . ' ' . $surname])
+            ->setTo([$mail->getFrom() => 'Admin'])
+            ->setBody($message);
 
         $result = $mailer->send($message);
-        $response_array['status'] = 'success';
+        if ($result)
+            echo 'success';
+        else
+            echo 'error';
     } catch (Exception $e) {
-        $response_array['status'] = 'error';
+        echo 'error';
     }
 } else {
-    $response_array['status'] = 'error';
+    echo 'error';
 }

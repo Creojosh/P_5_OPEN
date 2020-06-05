@@ -15,25 +15,18 @@
             </ol>
             <div class="carousel-inner">
                 <div class="carousel-item active">
-                    <svg class="bd-placeholder-img" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg"
-                         preserveAspectRatio="xMidYMid slice" focusable="false">
-                        <rect width="100%" height="100%" fill="#777"/>
-                        <text x="50%" y="50%" fill="#aaa" dy=".3em">1600x500</text>
-                    </svg>
+                    <img class="background w-100" src="{{ asset('/assets/img/background.jpg') }}" title="banner">
+
                     <div class="container">
                         <div class="carousel-caption text-left">
                             <h1>Développeur Back-End</h1>
                             <p>Joshua ETHEVE</p>
-                            <p>{{ name }}</p>
                         </div>
                     </div>
                 </div>
                 <div class="carousel-item">
-                    <svg class="bd-placeholder-img" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg"
-                         preserveAspectRatio="xMidYMid slice" focusable="false">
-                        <rect width="100%" height="100%" fill="#777"/>
-                        <text x="50%" y="50%" fill="#aaa" dy=".3em">1600x500</text>
-                    </svg>
+                    <img class="background w-100" src="{{ asset('/assets/img/background.jpg') }}" title="banner">
+
                     <div class="container">
                         <div class="carousel-caption">
                             <h1>Développeur Symfony</h1>
@@ -56,48 +49,32 @@
         <div class="container marketing">
 
             <hr class="featurette-divider">
-
-            <div class="row featurette">
-                <div class="col-md-5 order-md-2">
-                    <svg class="bd-placeholder-img bd-placeholder-img-lg featurette-image img-fluid mx-auto" width="500"
-                         height="500" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice"
-                         focusable="false"
-                         role="img" aria-label="Placeholder: 500x500">
-                        <title>Placeholder</title>
-                        <rect width="100%" height="100%" fill="#eee"/>
-                        <text x="50%" y="50%" fill="#aaa" dy=".3em">500x500</text>
-                    </svg>
-                </div>
-                <div class="col-md-7 order-md-1 mt-2">
-                    <h2>A PROPOS DE MOI
-                    </h2>
-                    <p class="lead">L'informatique a toujours été une passion et je souhaite en faire mon métier.
-                        Une forte motivation et des capacités d'analyse, de méthode et de rigueur m'aideront à forger
-                        mon avenir afin de devenir véritablement un développeur Back-end..</p>
-                    <h4>Liens utiles</h4>
+            <div>
+                <img class="w-100 banner" src="{{ asset('/assets/img/banner.png') }}" title="banner">
+                <div class="text-center my-3">
                     <a href="https://www.linkedin.com/in/etheve-joshua/" target="_blank" class="btn btn-primary">LinkedIn</a>
                     <a href="https://github.com/Creojosh" target="_blank" class="btn btn-dark">GitHub</a>
                     <a href="https://drive.google.com/file/d/1iJGMXT2r1672XlDO0bMLkTh1wIh3Pu8k/view?usp=sharing"
                        target="_blank" class="btn btn-success">CV</a></div>
             </div>
+            <div class="row featurette">
+                <div class="col-md-12 order-md-1 mt-2">
+                    <h2>A PROPOS DE MOI
+                    </h2>
+                    <p class="lead">L'informatique a toujours été une passion et je souhaite en faire mon métier.
+                        Une forte motivation et des capacités d'analyse, de méthode et de rigueur m'aideront à forger
+                        mon avenir afin de devenir véritablement un développeur Back-end..</p>
+
+                </div>
+
+            </div>
 
             <hr class="featurette-divider">
 
             <div class="row featurette">
-                <div class="col-md-5">
-                    <svg class="bd-placeholder-img bd-placeholder-img-lg featurette-image img-fluid mx-auto" width="500"
-                         height="500" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice"
-                         focusable="false"
-                         role="img" aria-label="Placeholder: 500x500">
-                        <title>Placeholder</title>
-                        <rect width="100%" height="100%" fill="#eee"/>
-                        <text x="50%" y="50%" fill="#aaa" dy=".3em">500x500</text>
-                    </svg>
-                </div>
-                <div class="col-md-7 order-md-1 mt-2">
+                <div class="col-md-12 order-md-1 mt-2">
                     <h2>Contact</h2>
-                    <div class="error"></div>
-
+                    <div class="flass-message hidden"></div>
                     <form id="form">
                         <div class="form-row">
                             <div class="form-group col-md-6">
@@ -106,7 +83,8 @@
                             </div>
                             <div class="form-group col-md-6">
                                 <label for="surname">Prénom</label>
-                                <input type="text" class="form-control" id="surname" name="surname" placeholder="prenom">
+                                <input type="text" class="form-control" id="surname" name="surname"
+                                       placeholder="prenom">
                             </div>
                             <div class="col-sm-12 my-1">
                                 <label for="email">Email</label>
@@ -114,7 +92,8 @@
                                     <div class="input-group-prepend">
                                         <div class="input-group-text">@</div>
                                     </div>
-                                    <input type="text" class="form-control" id="email" name="email" placeholder="Username">
+                                    <input type="text" class="form-control" id="email" name="email"
+                                           placeholder="Username">
                                 </div>
                             </div>
                             <div class="col-sm-12 my-1">
@@ -124,7 +103,6 @@
                                 </div>
                             </div>
                         </div>
-
                         <button type="submit" class="btn btn-primary">Envoyer</button>
                     </form>
                 </div>
@@ -149,10 +127,15 @@
                     type: 'post',
                     url: 'script/contact.php',
                     data: $('form').serialize(),
-                    success: function(data) {
-                        if(data.status === 'success'){
-                            alert("Ok");
-                        }else if(data.status === 'error'){
+                    success: function (data) {
+                        console.log(data);
+                        if (data === 'success') {
+                            $('.flass-message').html('Message envoyé');
+                            $('.flass-message').show();
+                            setTimeout(function () {
+                                $('.flass-message').hide()
+                            }, 3000);
+                        } else if (data === 'error') {
                             alert("Error");
                         }
                     }

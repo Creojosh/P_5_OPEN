@@ -1,13 +1,11 @@
-.social-icon {
-    display: inline-block;
-    width: 42px;
-    height: 42px;
-    line-height: 42px;
-    font-size: 16px;
-    color: #232323;
-    background: #fff;
-    border-radius: 100%;
-    box-shadow: 0 4px 12px rgba(0,0,0,.13);
-    margin: 0 4px;
-    text-align: center;
+.hidden {
+    display: none;
+}
+.background{
+    object-fit: cover;
+    max-height: 500px;
+}
+.banner{
+    max-height: 200px;
+    object-fit: contain;
 }

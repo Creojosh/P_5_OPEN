@@ -16,7 +16,6 @@ class Database
     $this->_password = '';
     }
 
-
     public function dbConnect()
     {
         try {
