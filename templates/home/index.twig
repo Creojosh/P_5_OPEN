@@ -118,26 +118,22 @@
     {{ parent() }}
     <script>
         $(function () {
-
             $('form').on('submit', function (e) {
-
                 e.preventDefault();
-
                 $.ajax({
                     type: 'post',
-                    url: 'script/contact.php',
+                    url: 'script/contact',
                     data: $('form').serialize(),
                     success: function (data) {
-                        console.log(data);
                         if (data === 'success') {
                             $('.flass-message').html('Message envoyé');
-                            $('.flass-message').show();
-                            setTimeout(function () {
-                                $('.flass-message').hide()
-                            }, 3000);
-                        } else if (data === 'error') {
-                            alert("Error");
+                        } else{
+                            $('.flass-message').html('Erreur');
                         }
+                        $('.flass-message').show();
+                        setTimeout(function () {
+                            $('.flass-message').hide()
+                        }, 3000);
                     }
                 });
 

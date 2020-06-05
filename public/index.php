@@ -5,7 +5,7 @@ $url = '/OC_5_PHP/';
 switch ($request) {
     case $url :
     case $url.'index' :
-        require __DIR__ . '/controller/index.php';
+        require __DIR__ . '/../controller/index.php';
         break;
     case $url.'blog' :
         require __DIR__ . '/controller/blog.php';

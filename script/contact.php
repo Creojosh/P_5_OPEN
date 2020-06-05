@@ -4,12 +4,14 @@ require_once('../loader.php');
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
-    $response_array = [];
+    $enc = new Encode();
+
     $mail = new Mail();
-    $name = strip_tags(htmlspecialchars($_POST['name']));
-    $surname = strip_tags(htmlspecialchars($_POST['surname']));
-    $email = strip_tags(htmlspecialchars($_POST['email']));
-    $message = strip_tags(htmlspecialchars($_POST['message']));
+    $name = $enc->encoder($_POST['name']);
+    $surname = $enc->encoder($_POST['surname']);
+    $email = $enc->encoder($_POST['email']);
+    $message = $enc->encoder($_POST['message']);
+
     try {
         $transport = (new Swift_SmtpTransport('smtp.gmail.com', 465, 'ssl'))
             ->setUsername($mail->getUsername())
@@ -28,8 +30,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         else
             echo 'error';
     } catch (Exception $e) {
+        http_response_code(500);
         echo 'error';
     }
 } else {
+    http_response_code(500);
     echo 'error';
 }

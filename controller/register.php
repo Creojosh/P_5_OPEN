@@ -2,4 +2,6 @@
 require_once('vendor/autoload.php');
 require_once('loader.php');
 
-echo $twig->render('home/index.twig', ['name' => '']);
+$db = new Database();
+
+echo $twig->render('register/index.twig');

@@ -11,7 +11,7 @@ class Database
     public function __construct()
     {
     $this->_host = 'localhost';
-    $this->_dbName = 'test';
+    $this->_dbName = 'open_5';
     $this->_username = 'root';
     $this->_password = '';
     }
@@ -19,8 +19,7 @@ class Database
     public function dbConnect()
     {
         try {
-            $db = new PDO('mysql:host=' . $this->_host . ';
-            charset=utf8', '' . $this->_username . '', '' . $this->_password . '');
+            $db = new PDO('mysql:='.$this->_host.';dbname='.$this->_dbName.';charset=utf8', ''.$this->_username.'', ''.$this->_password.'');
             /** Set error reporting */
             $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 

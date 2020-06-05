@@ -1,0 +1,97 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Accueil{% endblock %}
+
+{% block index %}active{% endblock %}
+
+{% block body %}
+
+    <main role="main" class="mt-5">
+        <div class="container my-4">
+            <div class="row justify-content-center">
+                <div class="col-lg-7">
+                    <div class="card shadow-lg border-0 rounded-lg mt-5">
+                        <div class="card-header"><h3 class="text-center font-weight-light my-4">Créer un compte</h3>
+                        </div>
+                        <div class="card-body">
+                            <div class="flass-message hidden"></div>
+
+                            <form>
+                                <div class="form-row">
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label class="small mb-1" for="inputUsername">Pseudo</label>
+                                            <input class="form-control py-4" id="inputUsername" name="inputUsername" type="text"
+                                                   placeholder="Votre pseudo"/>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="small mb-1" for="inputEmail">Email</label>
+                                    <input class="form-control py-4" id="inputEmail" name="inputEmail" type="email"
+                                           aria-describedby="emailHelp" placeholder="Votre email"/>
+                                </div>
+                                <div class="form-row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label class="small mb-1" for="inputPassword">Password</label>
+                                            <input class="form-control py-4" id="inputPassword" name="inputPassword" type="password"
+                                                   placeholder="Votre mot de passe"/>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label class="small mb-1" for="inputConfirm">Confirm
+                                                Password</label>
+                                            <input class="form-control py-4" id="inputConfirm" name="inputConfirm" type="password"
+                                                   placeholder="Confirmer votre mot de passe"/>
+                                        </div>
+                                    </div>
+                                </div>
+                                <button type="submit" class="btn btn-primary">S'enregistrer</button>
+                            </form>
+                        </div>
+                        <div class="card-footer text-center">
+                            <div class="small"><a href="login">Se connecter</a></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script>
+        $(function () {
+
+            $('form').on('submit', function (e) {
+
+                e.preventDefault();
+
+                $.ajax({
+                    type: 'post',
+                    url: 'script/user?action=register',
+                    data: $('form').serialize(),
+                    success: function (data) {
+                        console.log(data);
+                        if (data === 'success') {
+                            $('.flass-message').html('Compte crée. Un mail de confirmation va être envoyé');
+
+                        } else {
+                            $('.flass-message').html('Erreur');
+                        }
+                        $('.flass-message').show();
+                        setTimeout(function () {
+                            $('.flass-message').hide()
+                        }, 3000);
+                    }
+                });
+
+            });
+
+        });
+    </script>
+{% endblock %}
