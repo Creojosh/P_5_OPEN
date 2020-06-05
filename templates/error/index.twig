@@ -1,0 +1,20 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Error{% endblock %}
+
+{% block body %}
+
+    <main role="main" id="main">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="index">Accueil</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Erreur : {{ error }}</li>
+            </ol>
+        </nav>
+        <div class="container mt-3 text-center">
+          <h1>Erreur : {{ error }}</h1>
+            <a href="index" class="btn btn-danger">Retour</a>
+        </div>
+
+    </main>
+{% endblock %}
