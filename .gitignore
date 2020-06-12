@@ -1,3 +1,3 @@
 /vendor/
 /.idea/
-/class/Mail.php
+/lib/Mail.php

@@ -1,9 +1,11 @@
 <?php
+
+
 class DBFactory
 {
     protected $_host, $_dbName, $_username, $_password;
 
-    private function __construct()
+    public function __construct()
     {
         $this->_host = 'localhost';
         $this->_dbName = 'open_5';
@@ -12,7 +14,7 @@ class DBFactory
 
     }
 
-    private function getMysqlConnexionWithPDO()
+    public function dbConnect()
     {
         try {
             $db = new PDO('mysql:='.$this->_host.';dbname='.$this->_dbName.';charset=utf8', ''.$this->_username.'', ''.$this->_password.'');
@@ -25,5 +27,4 @@ class DBFactory
             die('Erreur : ' . $e->getMessage());
         }
     }
-
 }

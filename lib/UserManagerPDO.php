@@ -16,19 +16,16 @@ class UserManagerPDO extends UserManager
     }
 
     /**
+     * @param User $user
      * @see UserManager::add()
      */
     protected function add(User $user)
     {
-        $request = $this->db->prepare('INSERT INTO user(username, email, password, role, isActive, active_token, create_at) 
-VALUES(:username, :email, :password, :role, :isActive, :active_token, NOW())');
-        $request->bindValue(':username', $user->username());
+        $request = $this->db->prepare('INSERT INTO user( email, password, role, create_at) 
+VALUES(, :email, :password, :role, NOW())');
         $request->bindValue(':email', $user->email());
         $request->bindValue(':password', $user->password());
         $request->bindValue(':role', $user->role());
-        $request->bindValue(':isActive', null);
-        $request->bindValue(':active_token', null);
-
         $request->execute();
     }
 
@@ -58,7 +55,7 @@ VALUES(:username, :email, :password, :role, :isActive, :active_token, NOW())');
      */
     public function getList($debut = -1, $limite = -1)
     {
-        $sql = 'SELECT user_id, username, email, role, isActive, create_at FROM user ORDER BY user_id DESC';
+        $sql = 'SELECT user_id, email, role, create_at FROM user ORDER BY user_id DESC';
 
         if ($debut != -1 || $limite != -1)
         {
@@ -83,8 +80,27 @@ VALUES(:username, :email, :password, :role, :isActive, :active_token, NOW())');
      */
     public function getUnique($id)
     {
-        $request = $this->db->prepare('SELECT  user_id, username, email, role, isActive, create_at FROM user WHERE user_id = :id');
+        $request = $this->db->prepare('SELECT  user_id, email, role, create_at FROM user WHERE user_id = :id');
         $request->bindValue(':id', (int) $id, PDO::PARAM_INT);
+        $request->execute();
+
+        $request->setFetchMode(PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, 'User');
+
+        $user = $request->fetch();
+
+        return $user;
+    }
+
+    /**
+     * @param $email
+     * @return mixed
+     * @throws Exception
+     * @see UserManager::getUnique()
+     */
+    public function getUniqueEmail($email)
+    {
+        $request = $this->db->prepare('SELECT  user_id, email, role, password, create_at FROM user WHERE email = :email');
+        $request->bindValue(':email', (string) $email, PDO::PARAM_STR);
         $request->execute();
 
         $request->setFetchMode(PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, 'User');
@@ -101,15 +117,11 @@ VALUES(:username, :email, :password, :role, :isActive, :active_token, NOW())');
     protected function update(User $user)
     {
         $request = $this->db->prepare('UPDATE user 
-SET username = :username, email = :email, role = :contenu, password = :contenu, isActive = :isActive, active_token = :active_token WHERE user_id = :id');
+SET email = :email, role = :contenu, password = :contenu WHERE user_id = :id');
 
-        $request->bindValue(':username', $user->username());
         $request->bindValue(':email', $user->email());
         $request->bindValue(':role', $user->role());
         $request->bindValue(':password', $user->password());
-        $request->bindValue(':username', $user->username());
-        $request->bindValue(':isActive', $user->isActive());
-        $request->bindValue(':active_token', $user->activeToken());
         $request->bindValue(':id', $user->id(), PDO::PARAM_INT);
 
         $request->execute();
