@@ -4,7 +4,7 @@ require_once('../loader.php');
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
-    $user = new User();
+    $user = new UserAction();
     switch ($_GET['action']) {
         case 'register' :
             echo $user->createUser($_POST['inputUsername'], $_POST['inputEmail'], $_POST['inputPassword']);
