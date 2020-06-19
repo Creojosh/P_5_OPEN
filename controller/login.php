@@ -1,28 +1,40 @@
 <?php
-require_once(__DIR__ .'/../vendor/autoload.php');
+require_once(__DIR__ . '/../vendor/autoload.php');
 require_once(__DIR__ . '/../lib/loader.php');
+require_once(__DIR__ . '/../entity/User.php');
 
+$db = new DBFactory();
+$manager = new UserManagerPDO($db->dbConnect());
+$session = new SessionObject();
+$enc = new Encode();
 
-//$db = new Database();
-//
-//
-//$pass_hache = password_hash('123456', PASSWORD_DEFAULT);
-//
-//$request = $db->dbConnect()
-//    ->prepare
-//    ('INSERT INTO user(username, email, password, role, isActive, active_token, create_at)
-//VALUES(:username, :email, :password, :role, :isActive, :active_token, :create_at)');
-//$request->execute(array(
-//        'username' => 'josh',
-//        'email' => 'etheve.joshua@gmail.com',
-//        'password' => $pass_hache,
-//        'role' => 'user',
-//        'isActive' => null,
-//        'active_token' => null,
-//        'create_at' => date("Y-m-d H:i:s")
-//    )
-//);
+if (isset($_POST['inputEmailAddress']) && isset($_POST['inputPassword'])) {
+    $user = $manager->getUniqueEmail((string) $enc->encoder($_POST['inputEmailAddress']));
+    if ($user == null) {
+        echo $twig->render('admin/login.twig',[
+            'erreur'=> 'Désolé, accès non autorisé',
+        ]);
+        exit();
+    } else {
+        $isPasswordCorrect = false;
 
+        if (isset($_POST['inputPassword'])) {
+            $isPasswordCorrect = password_verify($_POST['inputPassword'], $user->password());
+        }
 
+        if ($isPasswordCorrect) {
+            $session->put('id', $user->id());
+            $session->put('email', $user->email());
+            header('Location: admin');
+            return;
+        } else {
+            echo $twig->render('admin/login.twig',[
+                'erreur'=> 'Désolé, accès non autorisé',
+            ]);
+            exit();
+        }
+    }
+} else {
+    echo $twig->render('admin/login.twig');
+}
 
-echo $twig->render('login/index.twig');

@@ -2,7 +2,7 @@
 require_once(__DIR__ .'/../vendor/autoload.php');
 require_once(__DIR__ . '/../lib/loader.php');
 
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+if (isset($_SERVER['REQUEST_METHOD']) == 'POST') {
 
     $enc = new Encode();
 

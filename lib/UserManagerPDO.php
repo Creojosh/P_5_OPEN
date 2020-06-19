@@ -22,7 +22,7 @@ class UserManagerPDO extends UserManager
     protected function add(User $user)
     {
         $request = $this->db->prepare('INSERT INTO user( email, password, role, create_at) 
-VALUES(, :email, :password, :role, NOW())');
+VALUES(:email, :password, :role, NOW())');
         $request->bindValue(':email', $user->email());
         $request->bindValue(':password', $user->password());
         $request->bindValue(':role', $user->role());
@@ -125,5 +125,14 @@ SET email = :email, role = :contenu, password = :contenu WHERE user_id = :id');
         $request->bindValue(':id', $user->id(), PDO::PARAM_INT);
 
         $request->execute();
+    }
+
+    protected function checkUser(User $user)
+    {
+        if (isset($user) && $user->role() != 'admin') {
+            return true;
+        } else {
+            return false;
+        }
     }
 }

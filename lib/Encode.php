@@ -5,7 +5,7 @@ class Encode
 {
     public function encoder($var)
     {
-        $var = strip_tags(htmlspecialchars($var));
+        $var = htmlspecialchars($var);
         return $var;
     }
 }

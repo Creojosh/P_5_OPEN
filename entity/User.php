@@ -2,6 +2,7 @@
 
 class User
 {
+    /** TODO explication protected */
     protected $erreurs = [],
         $user_id,
         $email,

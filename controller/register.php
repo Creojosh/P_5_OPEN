@@ -1,20 +1,19 @@
 <?php
 require_once(__DIR__ . '/../vendor/autoload.php');
 require_once(__DIR__ . '/../lib/loader.php');
-require '../entity/User.php';
+require_once(__DIR__ . '/../entity/User.php');
 $db = new DBFactory();
 $manager = new UserManagerPDO($db->dbConnect());
 
 $error = null;
 $message = null;
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+if (isset($_POST['inputEmail'])) {
     if ($_POST['inputPassword'] != $_POST['inputConfirm']) {
         $error = 'Désolé, le mot de passe ne correspond pas';
-    } else {
+    } else if(isset($_POST['inputPassword']) && isset($_POST['inputEmail'])) {
         $pass_hache = password_hash($_POST['inputPassword'], PASSWORD_DEFAULT);
         $user = new User(
             [
-                'username' => $_POST['inputUsername'],
                 'email' => $_POST['inputEmail'],
                 'password' => $pass_hache,
                 'role' => 'user',

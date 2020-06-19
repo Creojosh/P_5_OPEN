@@ -16,6 +16,8 @@ if ($req == $req_param) {
             require __DIR__ . '/../controller/register.php';
             break;
         case $url . 'login' :
+            require __DIR__ . '/../controller/login.php';
+            break;
         case $url . 'admin' :
             require __DIR__ . '/../controller/admin.php';
             break;

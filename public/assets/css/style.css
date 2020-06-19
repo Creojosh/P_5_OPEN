@@ -1,14 +1,1 @@
-main{
-    margin-top: 60px;
-}
-.hidden {
-    display: none;
-}
-.background{
-    object-fit: cover;
-    max-height: 300px;
-}
-.banner{
-    max-height: 200px;
-    object-fit: contain;
-}
+main{margin-top:60px;}.hidden{display:none;}.background{object-fit:cover;max-height:300px;}.banner{max-height:200px;object-fit:contain;}
