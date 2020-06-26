@@ -8,4 +8,12 @@ class Encode
         $var = htmlspecialchars($var);
         return $var;
     }
+
+    public function checkVarIsEmpty($var)
+    {
+        if ($var != null)
+            return $var;
+        else
+            return null;
+    }
 }

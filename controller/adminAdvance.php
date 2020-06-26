@@ -1,115 +1,76 @@
 <?php
-require_once(__DIR__ .'/../vendor/autoload.php');
+require_once(__DIR__ . '/../vendor/autoload.php');
 require_once(__DIR__ . '/../lib/loader.php');
 require_once(__DIR__ . '/../entity/User.php');
+require_once(__DIR__ . '/../lib/UserConnect.php');
 
-$db = new DBFactory();
-$manager = new UserManagerPDO($db->dbConnect());
-$session = new SessionObject();
-if(!$session->checkUser('id')){
-    $session->destroy();
-    echo $twig->render('admin/login.twig',[
-        'erreur'=> 'Désolé, nous avons rencontrer une erreur',
-    ]);
-}
+$method = $_SERVER['REQUEST_METHOD'];
 
-if (isset($_POST['inputEmailAddress']) && isset($_POST['inputPassword']))
-{
-    $user = $manager->getUniqueEmail((string) $_POST['inputEmailAddress']);
-    if ($user == null)
-    {
-        echo $twig->render('admin/login.twig',[
-            'erreur'=> 'Désolé, nous avons rencontrer une erreur',
-        ]);
-    }
-    else
-    {
-        $isPasswordCorrect = false;
-
-        if(isset($_POST['inputPassword'])){
-            $isPasswordCorrect = password_verify($_POST['inputPassword'], $user->password());
-        }
-
-        if ($isPasswordCorrect) {
-            $session->put('id', $user->id());
-            $session->put('email', $user->email());
-            header('Location: admin');
-
-        }
-        else {
-            echo $twig->render('admin/login.twig',[
-                'erreur'=> 'Désolé, nous avons rencontrer une erreur',
-            ]);
-            return;
-        }
-    }
-}
-
-if (!(int)$session->get('id')) {
-    echo $twig->render('admin/login.twig');
-    return;
-}else{
-    $user = $manager->getUnique((int)$session->get('id'));
-    if ($user->role() != 'admin'){
-        echo $twig->render('admin/login.twig',[
-            'erreur'=> 'Désolé, accès non autorisé',
-        ]);
-        return;
-    }
-}
-
-
+$encoder = new Encode();
 $message = null;
-$erreurs  = null;
-$user  = null;
-$listUser  = null;
-
-
-$listUser = $manager->getList();
-
-if (isset($_GET['modifier']))
-{
-    $user = $manager->getUnique((int) $_GET['modifier']);
-}
-
-if (isset($_GET['supprimer']))
-{
-    $manager->delete((int) $_GET['supprimer']);
-    $message = 'User a bien été supprimée !';
-}
-
-if (isset($_POST['email']))
-{
-    $pass_hache = password_hash($_POST['password'], PASSWORD_DEFAULT);
-    $email = (string) $_POST['email'];
-    $user = new User(
-        [
-            'email' => $email,
-            'password' => $pass_hache,
-            'role' => 'user',
-
-        ]
-    );
-
-    if (isset($_POST['id']))
-    {
-        $user->setId($_POST['id']);
-    }
-
-    if ($user->isValid())
-    {
-        $manager->save($user);
-
-        $message = $user->isNew() ? 'User a bien été ajoutée !' : 'User a bien été modifiée !';
-    }
-    else
-    {
-        $erreurs = $user->erreurs();
+$errors = null;
+$listRoles = User::ROLE_0;
+if ($method === 'GET') {
+    $user = null;
+    if (isset($_GET['action'], $_GET['id']) && in_array($session_user->role(), User::ROLE_2, true)) {
+        switch ($_GET['action']) {
+            case 'modifier':
+                $user = $manager->getUnique((int)$_GET['id']);
+                break;
+            case 'supprimer':
+                /** To avoid deleting yourself */
+                if ($session_user->id() != (int)$_GET['id']) {
+                    $manager->delete((int)$_GET['id']);
+                    header('Location: admin');
+                    return;
+                }
+                break;
+            default:
+                $user = null;
+                break;
+        }
     }
 }
+if ($method === 'POST' && in_array($session_user->role(), User::ROLE_2, true)) {
+    $email = $encoder->checkVarIsEmpty($_POST['inputEmail']);
+    $role = $encoder->checkVarIsEmpty($_POST['selectRole']);
+    $newPassword = $encoder->checkVarIsEmpty($_POST['newPassword']);
+    if (isset($email, $newPassword) && in_array($role, User::ROLE_0, true)) {
+        $pass_hache = password_hash($newPassword, PASSWORD_DEFAULT);
+        $email = (string)$email;
+        $userRole = '';
+        $user = $manager->getUniqueEmail((string)$email);
+        if ($user instanceof User)
+            $userRole = $user->role();
 
-echo $twig->render('admin/index.twig', [
-    'message' => htmlspecialchars((string)$message),
-    'erreurs'=> htmlspecialchars((string)$erreurs),
-    'user'=>$user,
-    'listUser'=> $listUser]);
+        if (!(in_array($userRole, User::ROLE_2, true))) {
+            if (!($user instanceof User)) {
+                $user = new User(
+                    [
+                        'email' => $email,
+                        'password' => $pass_hache,
+                    ]
+                );
+            }
+            if ($user->isValid()) {
+                /** To avoid lose his role */
+                if ($user->isNew() || $session_user->id() != $user->id()) {
+                    $user->setRole($role);
+                }
+                $manager->save($user);
+                $message = $user->isNew() ? 'User a bien été ajoutée !' : 'User a bien été modifiée !';
+            } else {
+                $errors = $user->erreurs();
+            }
+        } else {
+            $message = "Impossible de modifier un SUPER ADMIN";
+        }
+    }
+}
+
+echo $twig->render('admin/form.twig', [
+    'message' => $message,
+    'errors' => $errors,
+    'user' => $user,
+    'listRoles' => $listRoles
+]);

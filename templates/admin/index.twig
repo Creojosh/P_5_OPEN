@@ -14,30 +14,35 @@
         </ol>
     </nav>
     <div class="container mt-3">
+        <a href="adminAdvance" class="btn btn-warning float-right m-2">Nouveau</a>
+
         <table class="table">
             <thead>
             <tr>
                 <th scope="col">#</th>
                 <th scope="col">Email</th>
                 <th scope="col">Role</th>
+                <th scope="col">Créer le</th>
                 <th scope="col">Action</th>
             </tr>
             </thead>
             <tbody>
-            <tr>
-                {% for user in listUser %}
+            {% for user in listUser %}
+                <tr>
                     <th scope="row">{{ user.id }}</th>
                     <td>{{ user.email }}</td>
                     <td>{{ user.role }}</td>
                     <td>
-                        {% if user.isActive %}
-                            <i class="fas fa-check text-success"></i>
-                        {% else %}
-                            <i class="fas fa-times text-danger"></i>
-                        {% endif %}
+                        {{ user.create_at|date("d/m/Y H:i:s") }}
                     </td>
-                {% endfor %}
-            </tr>
+                    <td>
+                        <a href="adminAdvance?action=modifier&id={{ user.id }}" class="btn btn-warning"><i
+                                    class="far fa-edit"></i></a>
+                        <a href="adminAdvance?action=supprimer&id={{ user.id }}" class="btn btn-danger"><i
+                                    class="fas fa-trash"></i></a>
+                    </td>
+                </tr>
+            {% endfor %}
 
             </tbody>
         </table>

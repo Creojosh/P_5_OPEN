@@ -117,7 +117,7 @@ VALUES(:email, :password, :role, NOW())');
     protected function update(User $user)
     {
         $request = $this->db->prepare('UPDATE user 
-SET email = :email, role = :contenu, password = :contenu WHERE user_id = :id');
+SET email = :email, role = :role, password = :password WHERE user_id = :id');
 
         $request->bindValue(':email', $user->email());
         $request->bindValue(':role', $user->role());

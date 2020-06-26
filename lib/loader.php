@@ -7,10 +7,6 @@ function autoloadClass($class)
 
 spl_autoload_register('autoloadClass');
 
-/** Constante */
-$ROLE_1 = ["admin"];
-$ROLE_2 = ["admin", "super_admin"];
-$ROLE_3 = ["super_admin"];
 
 /** Session */
 $session = new SessionObject();

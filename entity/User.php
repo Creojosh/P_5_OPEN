@@ -9,10 +9,13 @@ class User
         $role,
         $password,
         $create_at;
-    
+
     const EMAIL_INVALIDE = 1;
     const ROLE_INVALIDE = 3;
     const PASSWORD_INVALIDE = 4;
+    const ROLE_0 = ["user","admin", "super_admin"];
+    const ROLE_1 = ["admin", "super_admin"];
+    const ROLE_2 = ["super_admin"];
 
     /**
      * Constructeur de la classe qui assigne les données spécifiées en paramètre aux attributs correspondants.
@@ -34,12 +37,10 @@ class User
      */
     public function hydrate($donnees)
     {
-        foreach ($donnees as $attribut => $valeur)
-        {
-            $methode = 'set'.ucfirst($attribut);
+        foreach ($donnees as $attribut => $valeur) {
+            $methode = 'set' . ucfirst($attribut);
 
-            if (is_callable([$this, $methode]))
-            {
+            if (is_callable([$this, $methode])) {
                 $this->$methode($valeur);
             }
         }
@@ -51,7 +52,7 @@ class User
      */
     public function isNew()
     {
-        return empty($this->id) || empty($this->email);
+        return empty($this->user_id) || empty($this->email);
     }
 
     /**
@@ -60,8 +61,7 @@ class User
      */
     public function isValid()
     {
-        return !(empty($this->email) || empty($this->role)
-            || empty($this->password));
+        return !(empty($this->email) || empty($this->password));
     }
 
 
@@ -69,17 +69,14 @@ class User
 
     public function setId($id)
     {
-        $this->user_id = (int) $id;
+        $this->user_id = (int)$id;
     }
 
     public function setEmail($email)
     {
-        if (!is_string($email) || empty($email))
-        {
+        if (!is_string($email) || empty($email)) {
             $this->erreurs[] = self::EMAIL_INVALIDE;
-        }
-        else
-        {
+        } else {
             $this->email = $email;
         }
     }
@@ -87,24 +84,18 @@ class User
 
     public function setRole($role)
     {
-        if (!is_string($role) || empty($role))
-        {
+        if (!is_string($role) || empty($role)) {
             $this->erreurs[] = self::ROLE_INVALIDE;
-        }
-        else
-        {
+        } else {
             $this->role = $role;
         }
     }
 
     public function setPassword($password)
     {
-        if (empty($password))
-        {
+        if (empty($password)) {
             $this->erreurs[] = self::PASSWORD_INVALIDE;
-        }
-        else
-        {
+        } else {
             $this->password = $password;
         }
     }

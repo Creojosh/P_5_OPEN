@@ -1,9 +1,10 @@
 <?php
 $db = new DBFactory();
 $manager = new UserManagerPDO($db->dbConnect());
+$session_user = null;
 if (isset($ID_Session)) {
-    $user = $manager->getUnique($ID_Session);
-    if (!(in_array($user->role(), $ROLE_2, true))) {
+    $session_user = $manager->getUnique($ID_Session);
+    if (!(in_array($session_user->role(), User::ROLE_1, true))) {
         header('Location: login');
         return;
     }

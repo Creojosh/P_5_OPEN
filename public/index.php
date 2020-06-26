@@ -21,6 +21,9 @@ if ($req == $req_param) {
         case $url . 'admin' :
             require __DIR__ . '/../controller/admin.php';
             break;
+        case $url . 'adminAdvance' :
+            require __DIR__ . '/../controller/adminAdvance.php';
+            break;
         case $url . 'logout' :
             require __DIR__ . '/../controller/logout.php';
             break;
@@ -37,8 +40,8 @@ if ($req == $req_param) {
         $id = (int) $_GET['id'];
         $action = (string) $_GET['action'];
         switch ($req) {
-            case $url . 'admin?action=' .$action .'&id='.$id:
-                require __DIR__ . '/../controller/admin.php';
+            case $url . 'adminAdvance?action=' .$action .'&id='.$id:
+                require __DIR__ . '/../controller/adminAdvance.php';
                 break;
             default:
                 http_response_code(404);
