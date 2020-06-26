@@ -8,4 +8,5 @@ $listUser  = null;
 $listUser = $manager->getList();
 
 echo $twig->render('admin/index.twig', [
-    'listUser'=> $listUser]);
+    'listUser'=> $listUser
+]);

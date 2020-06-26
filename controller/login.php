@@ -8,33 +8,40 @@ $manager = new UserManagerPDO($db->dbConnect());
 $session = new SessionObject();
 $enc = new Encode();
 
-if (isset($_POST['inputEmailAddress']) && isset($_POST['inputPassword'])) {
-    $user = $manager->getUniqueEmail((string) $enc->encoder($_POST['inputEmailAddress']));
-    if ($user == null) {
-        echo $twig->render('admin/login.twig',[
-            'erreur'=> 'Désolé, accès non autorisé',
-        ]);
-        exit();
-    } else {
-        $isPasswordCorrect = false;
+$method = $_SERVER['REQUEST_METHOD'];
 
-        if (isset($_POST['inputPassword'])) {
-            $isPasswordCorrect = password_verify($_POST['inputPassword'], $user->password());
-        }
 
-        if ($isPasswordCorrect) {
-            $session->put('id', $user->id());
-            $session->put('email', $user->email());
-            header('Location: admin');
-            return;
-        } else {
-            echo $twig->render('admin/login.twig',[
-                'erreur'=> 'Désolé, accès non autorisé',
+if ($method === 'POST') {
+    $email = $_POST['inputEmailAddress'];
+    $password = $_POST['inputPassword'];
+    if (isset($email) && isset($password)) {
+        /** Get User by email */
+        $user = $manager->getUniqueEmail((string)$enc->encoder($_POST['inputEmailAddress']));
+        $role = array("admin", "super_admin");
+        if ($user === null || !(in_array($user->role(), $role, true))) {
+            echo $twig->render('admin/login.twig', [
+                'erreur' => 'Désolé, accès non autorisé',
             ]);
-            exit();
+        } else {
+
+            /** Check if the password of user is correct */
+            $isPasswordCorrect = password_verify($password, $user->password());
+
+            if ($isPasswordCorrect) {
+                /** Create session with info of user is password is correct */
+                $session->put('id', $user->id());
+                $session->put('email', $user->email());
+                header('Location: admin');
+                return;
+            } else {
+                echo $twig->render('admin/login.twig', [
+                    'erreur' => 'Désolé, accès non autorisé',
+                ]);
+            }
         }
     }
 } else {
     echo $twig->render('admin/login.twig');
 }
+
 
