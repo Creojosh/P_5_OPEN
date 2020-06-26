@@ -10,6 +10,7 @@ spl_autoload_register('autoloadClass');
 
 /** Session */
 $session = new SessionObject();
+$_server = new ServerObject();
 $ID_Session = $session->get('id');
 
 /** Twig */

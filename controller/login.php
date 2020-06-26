@@ -7,15 +7,14 @@ $db = new DBFactory();
 $manager = new UserManagerPDO($db->dbConnect());
 $enc = new Encode();
 
-$method = $_SERVER['REQUEST_METHOD'];
-
+$method = $_server->method('REQUEST_METHOD');
 
 if ($method === 'POST') {
-    $email = $_POST['inputEmailAddress'];
-    $password = $_POST['inputPassword'];
+    $email = $_server->post('inputEmailAddress');
+    $password = $_server->post('inputPassword');
     if (isset($email) && isset($password)) {
         /** Get User by email */
-        $user = $manager->getUniqueEmail((string)$enc->encoder($_POST['inputEmailAddress']));
+        $user = $manager->getUniqueEmail((string)$_server->post('inputEmailAddress'));
         if ($user === null || !(in_array($user->role(), User::ROLE_1, true))) {
             echo $twig->render('admin/login.twig', [
                 'erreur' => 'Désolé, accès non autorisé',

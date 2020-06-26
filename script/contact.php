@@ -2,15 +2,17 @@
 require_once(__DIR__ .'/../vendor/autoload.php');
 require_once(__DIR__ . '/../lib/loader.php');
 
-if (isset($_SERVER['REQUEST_METHOD']) == 'POST') {
+$method = $_server->method('REQUEST_METHOD');
+
+if ($method === 'POST') {
 
     $enc = new Encode();
 
     $mail = new Mail();
-    $name = $enc->encoder($_POST['name']);
-    $surname = $enc->encoder($_POST['surname']);
-    $email = $enc->encoder($_POST['email']);
-    $message = $enc->encoder($_POST['message']);
+    $name = $enc->encoder($_server->post('name'));
+    $surname = $enc->encoder($_server->post('surname'));
+    $email = $enc->encoder($_server->post('email'));
+    $message = $enc->encoder($_server->post('message'));
 
     try {
         $transport = (new Swift_SmtpTransport('smtp.gmail.com', 465, 'ssl'))

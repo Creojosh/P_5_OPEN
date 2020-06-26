@@ -13,7 +13,7 @@ class User
     const EMAIL_INVALIDE = 1;
     const ROLE_INVALIDE = 3;
     const PASSWORD_INVALIDE = 4;
-    const ROLE_0 = ["user","admin", "super_admin"];
+    const ROLE_0 = ["user", "admin", "super_admin"];
     const ROLE_1 = ["admin", "super_admin"];
     const ROLE_2 = ["super_admin"];
 
@@ -76,9 +76,8 @@ class User
     {
         if (!is_string($email) || empty($email)) {
             $this->erreurs[] = self::EMAIL_INVALIDE;
-        } else {
+        } else
             $this->email = $email;
-        }
     }
 
 

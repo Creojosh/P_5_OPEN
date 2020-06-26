@@ -4,7 +4,7 @@ require_once(__DIR__ . '/../lib/loader.php');
 require_once(__DIR__ . '/../entity/User.php');
 require_once(__DIR__ . '/../lib/UserConnect.php');
 
-$method = $_SERVER['REQUEST_METHOD'];
+$method = $_server->method('REQUEST_METHOD');
 
 $encoder = new Encode();
 $message = null;
@@ -12,15 +12,18 @@ $errors = null;
 $listRoles = User::ROLE_0;
 if ($method === 'GET') {
     $user = null;
-    if (isset($_GET['action'], $_GET['id']) && in_array($session_user->role(), User::ROLE_2, true)) {
-        switch ($_GET['action']) {
+    $action = $_server->get('action');
+    $id = $_server->get('id');
+
+    if (isset($action, $id) && in_array($session_user->role(), User::ROLE_2, true)) {
+        switch ($action) {
             case 'modifier':
-                $user = $manager->getUnique((int)$_GET['id']);
+                $user = $manager->getUnique((int)$id);
                 break;
             case 'supprimer':
                 /** To avoid deleting yourself */
-                if ($session_user->id() != (int)$_GET['id']) {
-                    $manager->delete((int)$_GET['id']);
+                if ($session_user->id() != (int)$id) {
+                    $manager->delete((int)$id);
                     header('Location: admin');
                     return;
                 }
@@ -32,9 +35,9 @@ if ($method === 'GET') {
     }
 }
 if ($method === 'POST' && in_array($session_user->role(), User::ROLE_2, true)) {
-    $email = $encoder->checkVarIsEmpty($_POST['inputEmail']);
-    $role = $encoder->checkVarIsEmpty($_POST['selectRole']);
-    $newPassword = $encoder->checkVarIsEmpty($_POST['newPassword']);
+    $email = $_server->post('inputEmail');
+    $role = $_server->post('selectRole');
+    $newPassword = $_server->post('newPassword');
     if (isset($email, $newPassword) && in_array($role, User::ROLE_0, true)) {
         $pass_hache = password_hash($newPassword, PASSWORD_DEFAULT);
         $email = (string)$email;
