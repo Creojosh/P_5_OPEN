@@ -5,7 +5,6 @@ require_once(__DIR__ . '/../entity/User.php');
 
 $db = new DBFactory();
 $manager = new UserManagerPDO($db->dbConnect());
-$session = new SessionObject();
 $enc = new Encode();
 
 $method = $_SERVER['REQUEST_METHOD'];

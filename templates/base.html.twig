@@ -54,7 +54,7 @@
         </p>
              <a tabindex="0">&copy; 2020 Mentions légales</a>
              <a href="admin">Admin</a>
-             <a href="logout">Se déconnecter</a>
+             {% if session is not null %}<a href="logout">Se déconnecter</a>{% endif %}
     </footer>
 {% endblock %}
 {% block javascripts %}
