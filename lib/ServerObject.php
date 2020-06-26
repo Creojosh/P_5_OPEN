@@ -3,41 +3,22 @@
 
 class ServerObject
 {
-    /**
-     * @var array
-     */
-    protected $_post;
-
-    /**
-     * @var array
-     */
-    protected $_server;
-
-    /**
-     * @var array
-     */
-    protected $_get;
-
-    public function __construct()
-    {
-        $this->_server = $_SERVER;
-        $this->_post = $_POST;
-        $this->_get = $_GET;
-    }
-
     public function method($key)
     {
-        return (isset($this->_server[$key]) ? $this->_server[$key] : null);
+        $server = filter_input(INPUT_SERVER, $key);
+        return (isset($server) ? $server : null);
     }
 
     public function post($key)
     {
-        return (isset($this->_post[$key]) ?  $this->_post[$key] : null);
+        $post = filter_input(INPUT_POST, $key);
+        return (isset($post) ?  $post : null);
     }
 
     public function get($key)
     {
-        return (isset($this->_get[$key]) ? $this->_get[$key] : null);
+        $get = filter_input(INPUT_GET, $key);
+        return (isset($get) ? $get : null);
     }
 
 }
