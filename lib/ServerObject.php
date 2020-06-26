@@ -3,17 +3,41 @@
 
 class ServerObject
 {
-    public static function method($key)
+    /**
+     * @var array
+     */
+    protected $_post;
+
+    /**
+     * @var array
+     */
+    protected $_server;
+
+    /**
+     * @var array
+     */
+    protected $_get;
+
+    public function __construct()
     {
-        return (isset($_SERVER[$key]) ? $_SERVER[$key] : null);
+        $this->_server = $_SERVER;
+        $this->_post = $_POST;
+        $this->_get = $_GET;
     }
-    public static function post($key)
+
+    public function method($key)
     {
-        return (isset($_POST[$key]) ? $_POST[$key] : null);
+        return (isset($this->_server[$key]) ? $this->_server[$key] : null);
     }
-    public static function get($key)
+
+    public function post($key)
     {
-        return (isset($_GET[$key]) ? $_GET[$key] : null);
+        return (isset($this->_post[$key]) ?  $this->_post[$key] : null);
+    }
+
+    public function get($key)
+    {
+        return (isset($this->_get[$key]) ? $this->_get[$key] : null);
     }
 
 }
