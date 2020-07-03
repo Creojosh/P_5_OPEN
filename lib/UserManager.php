@@ -6,6 +6,8 @@ abstract class UserManager
     abstract public function delete($id);
     abstract public function getList($debut = -1, $limite = -1);
     abstract public function getUnique($id);
+    abstract public function getUniqueEmail($id);
+    abstract public function userIsConnect();
     public function save(User $user)
     {
         if ($user->isValid())

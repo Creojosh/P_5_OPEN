@@ -3,8 +3,7 @@ require_once(__DIR__ . '/../vendor/autoload.php');
 require_once(__DIR__ . '/../lib/loader.php');
 require_once(__DIR__ . '/../entity/User.php');
 
-$db = new DBFactory();
-$manager = new UserManagerPDO($db->dbConnect());
+$manager = new UserManagerPDO($db->dbConnect(), $session);
 $enc = new Encode();
 
 $method = $_server->method('REQUEST_METHOD');

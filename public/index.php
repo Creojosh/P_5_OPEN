@@ -1,6 +1,6 @@
 <?php
 
-$req = $_SERVER['REQUEST_URI'];
+$req = filter_input(INPUT_SERVER, 'REQUEST_URI', FILTER_SANITIZE_URL);
 $req_param = strtok($req, '?');
 $url = '/OC_5_PHP/public/';
 if ($req == $req_param) {
@@ -36,9 +36,9 @@ if ($req == $req_param) {
             break;
     }
 } else {
-    if(isset($_GET['id']) && isset($_GET['action'])){
-        $id = (int) $_GET['id'];
-        $action = (string) $_GET['action'];
+    $id = filter_input(INPUT_GET, 'id');
+    $action = filter_input(INPUT_GET, 'action');
+    if(isset($id) && isset($action)){
         switch ($req) {
             case $url . 'adminAdvance?action=' .$action .'&id='.$id:
                 require __DIR__ . '/../controller/adminAdvance.php';

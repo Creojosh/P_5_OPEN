@@ -1,4 +1,5 @@
 <?php
+
 class UserManagerPDO extends UserManager
 {
     /**
@@ -7,12 +8,18 @@ class UserManagerPDO extends UserManager
     protected $db;
 
     /**
-     * @param $db PDO
-     * @return void
+     * @var SessionObject
      */
-    public function __construct(PDO $db)
+    private $session;
+
+    /**
+     * @param $db PDO
+     * @param SessionObject $session
+     */
+    public function __construct(PDO $db, SessionObject $session)
     {
         $this->db = $db;
+        $this->session = $session;
     }
 
     /**
@@ -43,7 +50,7 @@ VALUES(:email, :password, :role, NOW())');
      */
     public function delete($id)
     {
-        $this->db->exec('DELETE FROM user WHERE user_id = '.(int) $id);
+        $this->db->exec('DELETE FROM user WHERE user_id = ' . (int)$id);
     }
 
     /**
@@ -57,9 +64,8 @@ VALUES(:email, :password, :role, NOW())');
     {
         $sql = 'SELECT user_id, email, role, create_at FROM user ORDER BY user_id DESC';
 
-        if ($debut != -1 || $limite != -1)
-        {
-            $sql .= ' LIMIT '.(int) $limite.' OFFSET '.(int) $debut;
+        if ($debut != -1 || $limite != -1) {
+            $sql .= ' LIMIT ' . (int)$limite . ' OFFSET ' . (int)$debut;
         }
 
         $request = $this->db->query($sql);
@@ -81,7 +87,7 @@ VALUES(:email, :password, :role, NOW())');
     public function getUnique($id)
     {
         $request = $this->db->prepare('SELECT  user_id, email, role, create_at FROM user WHERE user_id = :id');
-        $request->bindValue(':id', (int) $id, PDO::PARAM_INT);
+        $request->bindValue(':id', (int)$id, PDO::PARAM_INT);
         $request->execute();
 
         $request->setFetchMode(PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, 'User');
@@ -100,7 +106,7 @@ VALUES(:email, :password, :role, NOW())');
     public function getUniqueEmail($email)
     {
         $request = $this->db->prepare('SELECT  user_id, email, role, password, create_at FROM user WHERE email = :email');
-        $request->bindValue(':email', (string) $email, PDO::PARAM_STR);
+        $request->bindValue(':email', (string)$email, PDO::PARAM_STR);
         $request->execute();
 
         $request->setFetchMode(PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, 'User');
@@ -127,12 +133,18 @@ SET email = :email, role = :role, password = :password WHERE user_id = :id');
         $request->execute();
     }
 
-    protected function checkUser(User $user)
+    public function userIsConnect()
     {
-        if (isset($user) && $user->role() != 'admin') {
-            return true;
+        $ID_Session = $this->session->get('id');
+        if (isset($ID_Session)) {
+            $session_user = $this->getUnique($ID_Session);
+            if (!(in_array($session_user->role(), User::ROLE_1, true))) {
+                header('Location: login');
+            }else{
+                return $session_user;
+            }
         } else {
-            return false;
+            header('Location: login');
         }
     }
 }

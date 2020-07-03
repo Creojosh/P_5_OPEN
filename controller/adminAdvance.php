@@ -1,10 +1,12 @@
 <?php
 require_once(__DIR__ . '/../vendor/autoload.php');
 require_once(__DIR__ . '/../lib/loader.php');
+require_once(__DIR__ . '/../lib/UserManagerPDO.php');
 require_once(__DIR__ . '/../entity/User.php');
-require_once(__DIR__ . '/../lib/UserConnect.php');
 
 $method = $_server->method('REQUEST_METHOD');
+$userManager = new UserManagerPDO($db->dbConnect(), $session);
+$session_user = $userManager->userIsConnect();
 
 $encoder = new Encode();
 $message = null;
@@ -18,12 +20,12 @@ if ($method === 'GET') {
     if (isset($action, $id) && in_array($session_user->role(), User::ROLE_2, true)) {
         switch ($action) {
             case 'modifier':
-                $user = $manager->getUnique((int)$id);
+                $user = $userManager->getUnique((int)$id);
                 break;
             case 'supprimer':
                 /** To avoid deleting yourself */
                 if ($session_user->id() != (int)$id) {
-                    $manager->delete((int)$id);
+                    $userManager->delete((int)$id);
                     header('Location: admin');
                     return;
                 }
@@ -38,11 +40,14 @@ if ($method === 'POST' && in_array($session_user->role(), User::ROLE_2, true)) {
     $email = $_server->post('inputEmail');
     $role = $_server->post('selectRole');
     $newPassword = $_server->post('newPassword');
-    if (isset($email, $newPassword) && in_array($role, User::ROLE_0, true)) {
+
+    /** Remove all illegal characters from email */
+    $email = filter_var($email, FILTER_SANITIZE_EMAIL);
+    if (filter_var($email, FILTER_VALIDATE_EMAIL) && isset($newPassword) && in_array($role, User::ROLE_0, true)) {
         $pass_hache = password_hash($newPassword, PASSWORD_DEFAULT);
         $email = (string)$email;
         $userRole = '';
-        $user = $manager->getUniqueEmail((string)$email);
+        $user = $userManager->getUniqueEmail((string)$email);
         if ($user instanceof User)
             $userRole = $user->role();
 
@@ -60,7 +65,7 @@ if ($method === 'POST' && in_array($session_user->role(), User::ROLE_2, true)) {
                 if ($user->isNew() || $session_user->id() != $user->id()) {
                     $user->setRole($role);
                 }
-                $manager->save($user);
+                $userManager->save($user);
                 $message = $user->isNew() ? 'User a bien été ajoutée !' : 'User a bien été modifiée !';
             } else {
                 $errors = $user->erreurs();
