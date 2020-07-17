@@ -14,7 +14,7 @@
         </ol>
     </nav>
     <div class="container mt-3">
-        <a href="adminAdvance" class="btn btn-warning float-right m-2">Nouveau</a>
+        <a href="userAdvance" class="btn btn-warning float-right m-2">Nouveau</a>
 
         <table class="table">
             <thead>
@@ -36,9 +36,9 @@
                         {{ user.create_at|date("d/m/Y H:i:s") }}
                     </td>
                     <td>
-                        <a href="adminAdvance?action=modifier&id={{ user.id }}" class="btn btn-warning"><i
+                        <a href="userAdvance?action=modifier&id={{ user.id }}" class="btn btn-warning"><i
                                     class="far fa-edit"></i></a>
-                        <a href="adminAdvance?action=supprimer&id={{ user.id }}" class="btn btn-danger"><i
+                        <a href="userAdvance?action=supprimer&id={{ user.id }}" class="btn btn-danger"><i
                                     class="fas fa-trash"></i></a>
                     </td>
                 </tr>

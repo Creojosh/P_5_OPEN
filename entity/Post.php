@@ -1,21 +1,17 @@
 <?php
 
-class User
+class Post
 {
-    /** TODO explication protected */
     protected $erreurs = [],
+        $post_id,
         $user_id,
-        $email,
-        $role,
-        $password,
-        $create_at;
+        $title,
+        $chapo,
+        $create_at,
+        $update_at,
+        $content;
 
-    const EMAIL_INVALIDE = 1;
-    const ROLE_INVALIDE = 3;
-    const PASSWORD_INVALIDE = 4;
-    const ROLE_0 = ["user", "user", "super_admin"];
-    const ROLE_1 = ["user", "super_admin"];
-    const ROLE_2 = ["super_admin"];
+    const TITLE_INVALIDE = 1;
 
     /**
      * Constructeur de la classe qui assigne les données spécifiées en paramètre aux attributs correspondants.
@@ -47,21 +43,21 @@ class User
     }
 
     /**
-     * Méthode permettant de savoir si user est nouveau
+     * Méthode permettant de savoir si post est nouveau
      * @return bool
      */
     public function isNew()
     {
-        return empty($this->user_id) || empty($this->email);
+        return empty($this->post_id);
     }
 
     /**
-     * Méthode permettant de savoir si user est valide.
+     * Méthode permettant de savoir si post est valide.
      * @return bool
      */
     public function isValid()
     {
-        return !(empty($this->email) || empty($this->password));
+        return !(empty($this->user_id) || empty($this->title));
     }
 
 
@@ -69,38 +65,38 @@ class User
 
     public function setId($id)
     {
-        $this->user_id = (int)$id;
+        $this->post_id = (int)$id;
     }
 
-    public function setEmail($email)
+    public function setUserId($user_id)
     {
-        if (!is_string($email) || empty($email)) {
-            $this->erreurs[] = self::EMAIL_INVALIDE;
+        $this->user_id = (int)$user_id;
+    }
+
+    public function setTitle($title)
+    {
+        if (!is_string($title) || empty($title)) {
+            $this->erreurs[] = self::TITLE_INVALIDE;
         } else
-            $this->email = $email;
+            $this->title = $title;
     }
 
-
-    public function setRole($role)
+    public function setChapo($chapo)
     {
-        if (!is_string($role) || empty($role)) {
-            $this->erreurs[] = self::ROLE_INVALIDE;
-        } else {
-            $this->role = $role;
-        }
+        $this->chapo = $chapo;
     }
 
-    public function setPassword($password)
+    public function setContent($content)
     {
-        if (empty($password)) {
-            $this->erreurs[] = self::PASSWORD_INVALIDE;
-        } else {
-            $this->password = $password;
-        }
+        $this->content = $content;
     }
-
 
     public function setCreateAt(DateTime $create_at)
+    {
+        $this->create_at = $create_at;
+    }
+
+    public function setUpdateAt(DateTime $create_at)
     {
         $this->create_at = $create_at;
     }
@@ -114,26 +110,37 @@ class User
 
     public function id()
     {
+        return $this->post_id;
+    }
+
+    public function userID()
+    {
         return $this->user_id;
     }
 
-    public function email()
+    public function title()
     {
-        return $this->email;
+        return $this->title;
     }
 
-    public function role()
+
+    public function chapo()
     {
-        return $this->role;
+        return $this->chapo;
     }
 
-    public function password()
+    public function content()
     {
-        return $this->password;
+        return $this->content;
     }
 
     public function createAt()
     {
         return $this->create_at;
+    }
+
+    public function updateAt()
+    {
+        return $this->update_at;
     }
 }

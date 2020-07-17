@@ -1,0 +1,61 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Accueil{% endblock %}
+
+{% block index %}active{% endblock %}
+
+{% block body %}
+
+    <main role="main" id="main">
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="index">Accueil</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Admin</li>
+        </ol>
+    </nav>
+    <div class="container mt-3">
+        <a href="postAdvance" class="btn btn-warning float-right m-2">Nouveau</a>
+
+        <table class="table">
+            <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Email</th>
+                <th scope="col">Contenu</th>
+                <th scope="col">Créer le</th>
+                <th scope="col">Modifié le</th>
+                <th scope="col">Action</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for post in listPost %}
+                <tr>
+                    <th scope="row">{{ post.id }}</th>
+                    <td>{{ post.title }}</td>
+                    <td>{{ post.content|raw|slice(0, 40) }}</td>
+                    <td>
+                        {{ post.createAt|date("Y/m/d H:i:s") }}
+                    </td>
+                    <td>
+                        {{ post.updateAt|date("Y/m/d H:i:s") }}
+                    </td>
+                    <td>
+                        <a href="postAdvance?action=modifier&id={{ post.id }}" class="btn btn-warning"><i
+                                    class="far fa-edit"></i></a>
+                        <a href="postAdvance?action=supprimer&id={{ post.id }}" class="btn btn-danger"><i
+                                    class="fas fa-trash"></i></a>
+                    </td>
+                </tr>
+            {% endfor %}
+
+            </tbody>
+        </table>
+
+
+    </div>
+
+    </main>{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+{% endblock %}

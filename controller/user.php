@@ -9,6 +9,6 @@ $session_user = $userManager->userIsConnect();
 $listUser  = null;
 $listUser = $userManager->getList();
 
-echo $twig->render('admin/index.twig', [
+echo $twig->render('user/index.twig', [
     'listUser'=> $listUser
 ]);

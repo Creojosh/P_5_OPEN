@@ -15,7 +15,7 @@ if ($method === 'POST') {
         /** Get User by email */
         $user = $manager->getUniqueEmail((string)$_server->post('inputEmailAddress'));
         if ($user === null || !(in_array($user->role(), User::ROLE_1, true))) {
-            echo $twig->render('admin/login.twig', [
+            echo $twig->render('user/login.twig', [
                 'erreur' => 'Désolé, accès non autorisé',
             ]);
         } else {
@@ -27,17 +27,17 @@ if ($method === 'POST') {
                 /** Create session with info of user is password is correct */
                 $session->put('id', $user->id());
                 $session->put('email', $user->email());
-                header('Location: admin');
+                header('Location: user');
                 return;
             } else {
-                echo $twig->render('admin/login.twig', [
+                echo $twig->render('user/login.twig', [
                     'erreur' => 'Désolé, accès non autorisé',
                 ]);
             }
         }
     }
 } else {
-    echo $twig->render('admin/login.twig');
+    echo $twig->render('user/login.twig');
 }
 
 

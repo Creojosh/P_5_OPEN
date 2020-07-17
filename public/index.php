@@ -18,11 +18,17 @@ if ($req == $req_param) {
         case $url . 'login' :
             require __DIR__ . '/../controller/login.php';
             break;
-        case $url . 'admin' :
-            require __DIR__ . '/../controller/admin.php';
+        case $url . 'user' :
+            require __DIR__ . '/../controller/user.php';
+            break;
+        case $url . 'post' :
+            require __DIR__ . '/../controller/post.php';
             break;
         case $url . 'adminAdvance' :
-            require __DIR__ . '/../controller/adminAdvance.php';
+            require __DIR__ . '/../controller/userAdvance.php';
+            break;
+        case $url . 'postAdvance' :
+            require __DIR__ . '/../controller/postAdvance.php';
             break;
         case $url . 'logout' :
             require __DIR__ . '/../controller/logout.php';
@@ -40,8 +46,11 @@ if ($req == $req_param) {
     $action = filter_input(INPUT_GET, 'action');
     if(isset($id) && isset($action)){
         switch ($req) {
-            case $url . 'adminAdvance?action=' .$action .'&id='.$id:
-                require __DIR__ . '/../controller/adminAdvance.php';
+            case $url . 'userAdvance?action=' .$action .'&id='.$id:
+                require __DIR__ . '/../controller/userAdvance.php';
+                break;
+            case $url . 'postAdvance?action=' .$action .'&id='.$id:
+                require __DIR__ . '/../controller/postAdvance.php';
                 break;
             default:
                 http_response_code(404);

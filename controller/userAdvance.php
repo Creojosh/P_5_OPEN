@@ -26,7 +26,7 @@ if ($method === 'GET') {
                 /** To avoid deleting yourself */
                 if ($session_user->id() != (int)$id) {
                     $userManager->delete((int)$id);
-                    header('Location: admin');
+                    header('Location: user');
                     return;
                 }
                 break;
@@ -59,6 +59,8 @@ if ($method === 'POST' && in_array($session_user->role(), User::ROLE_2, true)) {
                         'password' => $pass_hache,
                     ]
                 );
+            }else{
+                $user->setPassword($pass_hache);
             }
             if ($user->isValid()) {
                 /** To avoid lose his role */
@@ -76,7 +78,7 @@ if ($method === 'POST' && in_array($session_user->role(), User::ROLE_2, true)) {
     }
 }
 
-echo $twig->render('admin/form.twig', [
+echo $twig->render('user/form.twig', [
     'message' => $message,
     'errors' => $errors,
     'user' => $user,
