@@ -1,3 +1,6 @@
 /vendor/
 /.idea/
 /lib/Mail.php
+
+# Local Netlify folder
+.netlify
